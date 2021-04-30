@@ -13,6 +13,6 @@ public class App
     {
     	ApplicationContext context=new
     			ClassPathXmlApplicationContext(new String[]{"springContext.xml"});
-        System.out.println( "Hello World!" );
+        System.out.println( "Hello World  sd3tina a najla !" );
     }
 }

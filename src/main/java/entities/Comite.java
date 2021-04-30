@@ -9,9 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
-@Component @Entity
+@Component @Entity @Table(name = "comite")
 public class Comite {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;

@@ -13,10 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-@Component @Entity
+@Component @Entity @Table(name = "article")
 public class Article {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

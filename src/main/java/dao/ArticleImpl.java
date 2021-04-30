@@ -2,12 +2,20 @@ package dao;
 
 import java.util.Collection;
 
+import javax.persistence.PersistenceContext;
+
+import org.hibernate.Query;
+
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 
 import entities.Article;
 
+@Transactional 
 public class ArticleImpl implements IArticle{
 
 	@Autowired
@@ -20,17 +28,23 @@ public class ArticleImpl implements IArticle{
 		return article;
 	}
 
-	
+	//@Transactional 
 	public void supprimerArticle(Article article) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.delete(article);
+		/*Query query = session.createQuery("delete from Article a where a.idArticle = :id");
+		query.setParameter("id", article.getIdArticle());
+		query.executeUpdate();*/
+		session.remove(article);
 		
 	}
 
-	
+	//@Transactional
 	public Article modifierArticle(Article article) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.update(article);
+		session.save(article);
+		
+		System.out.println("hahya "+findById(article.getIdArticle()).getContenu());
+		
 		return article;
 	}
 
@@ -43,14 +57,14 @@ public class ArticleImpl implements IArticle{
 	
 	public Article findById(long id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		return (Article) session.createQuery("from Article a where a.id = "+id).uniqueResult();
+		return (Article) session.createQuery("from Article a where a.idArticle = "+id).uniqueResult();
 	}
 
 	
 	public void deleteById(long id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Article article = this.findById(id);
-		session.delete(article);
+		session.remove(article);
 	}
 
 	

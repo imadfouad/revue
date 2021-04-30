@@ -8,10 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-@Component @Entity
+@Component @Entity @Table(name = "revue")
 public class Revue {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;
