@@ -34,15 +34,25 @@ public class ArticleImplTest {
 	@Autowired
 	IArticle articleImpl;
 	
-	
+	@Transactional
 	@Test
 	public void testAjouterArticle() {
 		Article article = new Article();
-		article.setContenu("test ajouté");
+		article.setContenu("test one");
+		Article article1 = new Article();
+		article1.setContenu("test two");
+		System.out.println("pst");
 		articleImpl.ajouterArticle(article);
-		long id = article.getIdArticle();
-		System.out.println(articleImpl.findById(id).getIdArticle());
-		assertEquals("test ajouté", articleImpl.findById(id).getContenu());
+		articleImpl.ajouterArticle(article1);
+		
+		
+		System.out.println(article.getIdArticle());
+		article.setContenu("yeeeeees");
+		articleImpl.modifierArticle(article);
+
+		System.out.print("yay");
+
+
 	}
 	
 	@Test
@@ -53,7 +63,7 @@ public class ArticleImplTest {
 		
 		long id = article.getIdArticle();
 		
-		articleImpl.supprimerArticle(article);
+		System.out.print("im supprimer");
 		
 		assertNull(articleImpl.findById(id));
 	}
@@ -71,15 +81,12 @@ public class ArticleImplTest {
 	*/
 	@Test
 	public void testModifierArticle() {
-		Article article = new Article();
-		article.setContenu("test 1");
-		articleImpl.ajouterArticle(article);
+		Article article = new Article() ; 
 		
-		article.setContenu("test modifie");
-		articleImpl.modifierArticle(article);
-		
-		long id = article.getIdArticle();
-		assertEquals("test modifie",articleImpl.findById(id).getContenu());
+
+		System.out.print("im modif");
+
+		 
 	}
 	
 	@Test
@@ -97,15 +104,17 @@ public class ArticleImplTest {
 		articleImpl.ajouterArticle(article);
 		long id = article.getIdArticle();
 		assertEquals(idLast, id);
+		System.out.print("im testfind");
+
 	}
 	
 	@Test
 	public void testDeleteByIdArticle() {
-		Article article = new Article();
-		articleImpl.ajouterArticle(article);
-		long id = article.getIdArticle();
-		articleImpl.deleteById(id);
-		assertNull(articleImpl.findById(id));
+		
+		
+
+		System.out.print("im delete");
+
 	}
 	
 }

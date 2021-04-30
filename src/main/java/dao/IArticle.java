@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,11 +12,11 @@ import entities.Article;
 public interface IArticle {
 
 	public Article ajouterArticle(Article article);
-	public void supprimerArticle(Article article);
+	public void supprimerArticle(long id);
 	@Modifying(clearAutomatically = true)
 	@Transactional
-	public Article modifierArticle(Article article);
-	public Collection<Article> getAllArticles();
+	public void modifierArticle(Article article);
+	public List<Article> getAllArticles();
 	public Article findById(long id);
 	public void deleteById(long id);
 }
