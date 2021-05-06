@@ -3,6 +3,7 @@ package dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 
@@ -11,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 
+import org.hibernate.ObjectNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,20 +40,11 @@ public class ArticleImplTest {
 	@Test
 	public void testAjouterArticle() {
 		Article article = new Article();
-		article.setContenu("test one");
-		Article article1 = new Article();
-		article1.setContenu("test two");
-		System.out.println("pst");
+		article.setContenu("test");
 		articleImpl.ajouterArticle(article);
-		articleImpl.ajouterArticle(article1);
+		long id = article.getIdArticle();
 		
-		
-		System.out.println(article.getIdArticle());
-		article.setContenu("yeeeeees");
-		articleImpl.modifierArticle(article);
-
-		System.out.print("yay");
-
+		assertEquals("test", articleImpl.findById(id).getContenu());
 
 	}
 	
@@ -60,12 +53,25 @@ public class ArticleImplTest {
 		Article article = new Article();
 		
 		articleImpl.ajouterArticle(article);
-		
+
 		long id = article.getIdArticle();
-		
+
+		articleImpl.supprimerArticle(article);
 		System.out.print("im supprimer");
 		
-		assertNull(articleImpl.findById(id));
+		boolean check = false;
+		
+		try{
+			articleImpl.findById(id);
+		}
+		catch(ObjectNotFoundException e)
+		{
+			check = true;
+		}
+		finally {
+			assertTrue(check);
+		}	
+		
 	}
 	/*
 	public void testUpdateProduct() {
@@ -81,8 +87,15 @@ public class ArticleImplTest {
 	*/
 	@Test
 	public void testModifierArticle() {
-		Article article = new Article() ; 
-		
+		Article article = new Article();
+		article.setContenu("test 1");
+		articleImpl.ajouterArticle(article);
+
+		article.setContenu("test modifie");
+		articleImpl.modifierArticle(article);
+
+		long id = article.getIdArticle();
+		assertEquals("test modifie",articleImpl.findById(id).getContenu());
 
 		System.out.print("im modif");
 
@@ -98,7 +111,7 @@ public class ArticleImplTest {
 		{
 			idLast = a.getIdArticle();
 		}
-		idLast += idLast;
+		idLast += 1;
 		
 		Article article = new Article();
 		articleImpl.ajouterArticle(article);
@@ -111,9 +124,23 @@ public class ArticleImplTest {
 	@Test
 	public void testDeleteByIdArticle() {
 		
+		Article article = new Article();
+		articleImpl.ajouterArticle(article);
+		long id = article.getIdArticle();
+		articleImpl.deleteById(id);
 		
-
-		System.out.print("im delete");
+		boolean check = false;
+		
+		try{
+			articleImpl.findById(id);
+		}
+		catch(ObjectNotFoundException e)
+		{
+			check = true;
+		}
+		finally {
+			assertTrue(check);
+		}
 
 	}
 	

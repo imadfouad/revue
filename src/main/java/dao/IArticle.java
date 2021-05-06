@@ -12,7 +12,7 @@ import entities.Article;
 public interface IArticle {
 
 	public Article ajouterArticle(Article article);
-	public void supprimerArticle(long id);
+	public void supprimerArticle(Article article);
 	@Modifying(clearAutomatically = true)
 	@Transactional
 	public void modifierArticle(Article article);

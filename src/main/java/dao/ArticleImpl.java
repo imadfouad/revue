@@ -77,16 +77,12 @@ public class ArticleImpl implements IArticle{
 		session.remove(article);
 	}
 	@Transactional
-	public void supprimerArticle(long id) {
+	public void supprimerArticle(Article article) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Article a = (Article) session.load(Article.class, new Long(id));
-		if(null != a){
-			session.delete(a);
-		}
-		
-		session.remove(a);
+		session.remove(article);
 		
 	}
+
 
 	
 

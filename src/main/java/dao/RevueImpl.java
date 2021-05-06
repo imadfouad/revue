@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import Revue2.Revue2.App;
 import entities.Revue;
 
 public class RevueImpl implements IRevue {
